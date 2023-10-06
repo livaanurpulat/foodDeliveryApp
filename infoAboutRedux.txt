@@ -1,0 +1,65 @@
+REDUCER(AZALTICI):
+Reducer, Redux uygulamasının durumunu yönetmek ve güncellemek için kullanılan bir JavaScript fonksiyonudur. 
+Her bir reducer, belirli bir parçanın (slices) durumunu temsil eder. 
+Reducer'lar, önceki durumu ve bir eylemi alır, bu eyleme göre yeni bir durum nesnesi oluşturur veya mevcut durumu günceller. 
+Reducer'lar, uygulamanın belirli bir durum kesitini nasıl güncelleyeceğini belirler.
+
+Örneğin, aşağıdaki örnek bir azaltıcıdır (reducer):
+****************************************************************
+const initialState = {
+  count: 0,
+};
+
+const counterReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return { ...state, count: state.count + 1 };
+    case 'DECREMENT':
+      return { ...state, count: state.count - 1 };
+    default:
+      return state;
+  }
+};
+
+export default counterReducer;
+****************************************************************
+
+SLICE:
+Slice, Redux Toolkit ile gelen bir kavramdır ve Redux reducer'larını daha modüler ve kolay kullanılabilir hale getirmek için kullanılır. 
+Bir slice, bir reducer ve bu reducer'ı güncellemek için kullanılan eylem yaratıcıları (action creators) içerir. 
+Ayrıca, başlangıç durumu (initial state) ve slice adını içerir.
+
+Örneğin, aşağıdaki örnek bir Redux Slice'dır:
+******************************************************************
+import { createSlice } from '@reduxjs/toolkit';
+
+const initialState = {
+  count: 0,
+};
+
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState,
+  reducers: {
+    increment: (state) => {
+      state.count += 1;
+    },
+    decrement: (state) => {
+      state.count -= 1;
+    },
+  },
+});
+
+export const { increment, decrement } = counterSlice.actions;
+export default counterSlice.reducer;
+********************************************************************
+Bu örnekte, counterSlice adlı bir slice oluşturuldu. 
+Bu slice, increment ve decrement adlı eylem yaratıcıları ile birlikte bir azaltıcıyı içerir. 
+Slice, reducer'ı otomatik olarak oluşturur ve eylem yaratıcıları ile birlikte dışa aktarır.
+
+BAĞLANTI:
+Slice'lar, genellikle Redux Toolkit ile birlikte kullanılan bir konsepttir. 
+Slice'lar, kodun daha organize ve okunabilir olmasını sağlar. 
+Ancak, slice'lar aslında reducer'ları içerir ve bu yüzden sliceler içinde reducer'lar yer alır. 
+Redux Toolkit, reducer'ların ve eylem yaratıcılarının oluşturulmasını kolaylaştıran bir araçtır ve sliceler bu aracı kullanarak reducer'ları daha basit ve düzenli hale getirir. 
+Bu nedenle, Redux Toolkit kullanıyorsanız, sliceler ve reducer'lar arasında bir bağlantı vardır.
